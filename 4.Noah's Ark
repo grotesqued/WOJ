@@ -1,0 +1,78 @@
+#include <iostream>
+#include <cmath>
+#include <string>
+const double tmp = 1e-9;
+
+using namespace std;
+
+double trans(double l, string unit)
+{
+	if (unit == "meters")
+	{
+		l *= 100;
+	}
+	else if (unit == "inches")
+	{
+		l *= 2.54;
+	}
+	else if (unit == "cubits")
+	{
+		l *= 45.72;
+	}
+	else if (unit == "feet")
+	{
+		l *= 30.48;
+	}
+	return l;
+}
+
+int main()
+{
+	string l, w, h;
+	double ll, ww, hh;
+	int flag[10] = { 0,0,0,0,0,0,0,0,0,0 };
+	int i = 0;
+	
+	while (cin >> ll)
+	{
+		cin >> l >> ww >> w >> hh >> h;
+
+		ll = trans(ll, l);
+		ww = trans(ww, w);
+
+		if (fabs(ll - 6.0 * ww) < tmp)
+		{
+			flag[i] = 1;
+			i++;
+		}
+		else if (fabs(ll - ww) < tmp)
+		{
+			flag[i] = 2;
+			i++;
+		}
+		else
+		{
+			flag[i] = 3;
+			i++;
+		}
+	}
+
+	for (i = 0; flag[i] != 0; i++)
+	{
+		if (flag[i] == 1)
+		{
+			cout << "Excellent" << endl;
+		}
+		else if (flag[i] == 2)
+		{
+			cout << "Spin" << endl;
+		}
+		else
+		{
+			cout << "Neither" << endl;
+		}
+		cout << endl;
+	}
+
+	return 0;
+}
